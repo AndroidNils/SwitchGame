@@ -1,4 +1,7 @@
-int level = 3; //<>//
+// Game Design and Development by: Nils Reichardt //<>//
+// Maps created by: Moritz 
+
+int level = 3;
 
 // Versuche für das Level
 int triesLevel1 = 0;
@@ -276,7 +279,7 @@ void draw() {
       delay(100);
     } else {
       if (isStarted) {
-        
+
         // Prüfe, ob Ball gegen Wand und das Ende der Welt gelaufen ist
         if (getCurrentBall().isAtEdge() || isAtWall()) {
           countUpCurrentTries();
@@ -286,12 +289,12 @@ void draw() {
           // Prüfe, ob Ball am Ziel ist
           if (isAtFinish()) {
             nextLevel();
-            if(level != 3) {
+            if (level != 3) {
               thread("startCountdown");
             }
           } else {
             background(000, 255, 255);
-            getCurrentBall().gehe();
+            getCurrentBall().move();
           }
         }
 
@@ -303,13 +306,14 @@ void draw() {
       }
     }
   } else {
+    // Ziel ist vorbei; Zeige Random gesetzte Bälle
     Ball b = new Ball(20);
-    
+
     b.setX((int)random(480));
     b.setY((int)random(480));
-    
+
     b.setColor((int) random(255), (int) random(255), (int) random(255));
-    
+
     b.update();
   }
 }
@@ -317,27 +321,32 @@ void draw() {
 
 void keyPressed() {
 
+  // Drehe nach Rechts
   if (keyCode == RIGHT && isStarted) {
-    getCurrentBall().dreheNach("rechts");
+    getCurrentBall().turn("rechts");
   }
 
+  // Drehe nach Links
   if (keyCode == LEFT && isStarted) {
-    getCurrentBall().dreheNach("links");
+    getCurrentBall().turn("links");
   }
-  
+
+  // Restart the Game
   if (isFinished) {
-    setupGame();
-    thread("startCountdown");
+    restartGame();
   }
-  
+
+  // Setze das Spiel fort
   if (!isStarted || key == 'g') {
     continueGame();
   }
 
+  // Pausiere das Spiel
   if (key == 'p') {
     pauseGame();
   }
 
+  // Setze das Spiel zurück (auf Level 0)
   if (key == 'n') {
     level = 0;
 
@@ -348,10 +357,11 @@ void keyPressed() {
 
 
 void mousePressed() {
-  println("MouseX: " + mouseX + "; MouseY: " + mouseY);
+  //println("MouseX: " + mouseX + "; MouseY: " + mouseY);
+
+  // Restart the Game; Wenn Game-Over Screen angezeigt wird
   if (isFinished) {
-    setupGame();
-    thread("startCountdown");
+    restartGame();
   }
 }
 
@@ -365,7 +375,7 @@ void nextLevel() {
   if (level == 3) {
     println(""); // Leere Zeile ausgeben
     println("Super! Du hast gewonnen! Alle Level konntest du meistern! :)");
-    
+
     int totalTries = triesLevel1 + triesLevel2 + triesLevel3;
     println("Insgesamt hast du für alle Level " + totalTries + " gebraucht!");
     background(000, 255, 255);
@@ -374,8 +384,13 @@ void nextLevel() {
     level++;
     setupGame();
   }
+  
 }
 
+void restartGame() {
+  setupGame();
+  thread("startCountdown");
+}
 
 void continueGame() {
   isStarted = true;
@@ -459,6 +474,7 @@ ArrayList<Object> getCurrentWalls() {
   }
 }
 
+// Gibt den das Finish-Objekt für das akutelle Level zurück
 Object getCurrentFinish() {
   switch(level) {
   case 0:
@@ -474,6 +490,7 @@ Object getCurrentFinish() {
   }
 }
 
+// Gibt den Ball für das aktuelle Level zurück
 Ball getCurrentBall() {
   switch(level) {
   case 0:
@@ -489,6 +506,7 @@ Ball getCurrentBall() {
   }
 }
 
+// Gibt die Versuche aus dem akutellen Level zurück
 int getCurrentTries() {
   switch(level) {
   case 1:
@@ -502,6 +520,7 @@ int getCurrentTries() {
   }
 }
 
+// Zählt die Versuche aus dem akutellen um eins nach oben
 int countUpCurrentTries() {
   switch(level) {
   case 1:
