@@ -71,6 +71,8 @@ boolean isStarted = false;
 boolean isFinished = false;
 boolean isOver = false;
 
+//PrintWriter output;
+
 void setup() {
 
   size(500, 500);
@@ -223,6 +225,8 @@ void setup() {
   wall16Level3.setX(363);
   wall16Level3.setY(264);
 
+  //output = createWriter("results.txt");
+
   setupGame();
   startCountdown();
 }
@@ -351,6 +355,11 @@ void keyPressed() {
   if (key == 'n') {
     level = 0;
 
+    // Setze alle Versuche zurück
+    triesLevel1 = 0;
+    triesLevel2 = 0;
+    triesLevel3 = 0; 
+
     setupGame();
     thread("startCountdown");
   }
@@ -381,11 +390,26 @@ void nextLevel() {
     println("Insgesamt hast du für alle Level " + totalTries + " Versuche gebraucht!");
     background(000, 255, 255);
     isOver = true;
+
+    // Lade alte Spielstände aus der Datei
+    String file = "";
+    String[] lines = loadStrings("results.txt");
+    println("there are " + lines.length + " lines");
+    for (int i = 0; i < lines.length; i++) {
+      file = file + lines[i] + " ";
+    }
+    
+    // Füge die neuen Spielstände zu den alten Spielständen hinzu
+    String result = "#user" + lines.length + ";" + triesLevel1 + ";" + triesLevel2 + ";" + triesLevel3 + ";" + totalTries +";";
+    file = file + result;
+    
+    // Schreibe alle Spielstände in die results.txt
+    String[] list = split(file, ' ');
+    saveStrings("results.txt", list);
   } else {
     level++;
     setupGame();
   }
-  
 }
 
 void restartGame() {
