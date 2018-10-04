@@ -5,5 +5,5 @@ SwitchGame ist ein kleines Spiel, bei welchem man einen kleinen Ball an das Ziel
 
 
 # Autoren
-Programmierung: Nils Reichardt
+Programmierung: Nils Reichardt<br>
 Erstellungen der Level: Moritz Knaack
