@@ -1,7 +1,8 @@
 // Game Design and Development by: Nils Reichardt //<>//
-// Maps created by: Moritz 
+// Maps created by: Moritz Knaack
+// Version: 1.2
 
-int level = 3;
+int level = 0;
 
 // Versuche für das Level
 int triesLevel1 = 0;
@@ -377,7 +378,7 @@ void nextLevel() {
     println("Super! Du hast gewonnen! Alle Level konntest du meistern! :)");
 
     int totalTries = triesLevel1 + triesLevel2 + triesLevel3;
-    println("Insgesamt hast du für alle Level " + totalTries + " gebraucht!");
+    println("Insgesamt hast du für alle Level " + totalTries + " Versuche gebraucht!");
     background(000, 255, 255);
     isOver = true;
   } else {
