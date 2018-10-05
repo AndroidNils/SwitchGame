@@ -140,10 +140,12 @@ void setup() {
   level1Walls.add(wall7Level1);
   level1Walls.add(wall8Level1);
   level1Walls.add(wall9Level1);
-  
+
   // Setze die Levelanzeige in die Liste der Wände
   level1Walls.add(showLevel1Object1);
   level1Walls.add(showLevel1Object2);
+  
+  // Setzte die Farbe der Wände
 
   // Setze alle Wände in ArrayList - Level 2
   level2Walls.add(wall1Level2);
@@ -194,7 +196,7 @@ void setup() {
   wall8Level1.setY(396);
   wall9Level1.setX(66);
   wall9Level1.setY(396);
-  
+
   // Setze die Levelanzeigen - Level 1
   showLevel1Object1.setX(220);
   showLevel1Object1.setY(176);
@@ -434,7 +436,7 @@ void nextLevel() {
     saveStrings("results.txt", list);
   } else {
     level++;
-    
+
     setupGame();
   }
 }
@@ -499,7 +501,7 @@ void startCountdown() {
       if (!isStarted) {
         continueGame();
         println("Auf gehts!");
-        
+
         deleteLevelNumber();
       }
     }
@@ -508,12 +510,11 @@ void startCountdown() {
 
 // Löscht die Level Anzeige aus der ArrayList
 void deleteLevelNumber() {
-  
-  for(int i = 0; i < getCurrentLevelNumber(); i++) {
-   getCurrentWalls().remove(getCurrentWalls().size() - 1);
+  if (getCurrentTries() == 0) {
+    for (int i = 0; i < getCurrentLevelNumber(); i++) {
+      getCurrentWalls().remove(getCurrentWalls().size() - 1);
+    }
   }
-  
-
 }
 
 
