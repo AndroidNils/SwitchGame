@@ -1,13 +1,28 @@
 // Game Design and Development by: Nils Reichardt //<>//
 // Maps created by: Moritz Knaack
-// Version: 1.2
+// Version: 1.3
 
-int level = 0;
+int level = 1;
 
 // Versuche für das Level
 int triesLevel1 = 0;
 int triesLevel2 = 0;
 int triesLevel3 = 0;
+
+// Zeige die Zahl des Levels
+int showLevelNumber1 = 2;
+int showLevelNumber2 = 5;
+int showLevelNumber3 = 4;
+
+// Levelanzeige - Level 1
+Object showLevel1Object1 = new Object(20, 75); 
+Object showLevel1Object2 = new Object(100, 20); 
+
+// Levelanzeige - Level 2
+
+
+// Levelanzeige - Level 3
+
 
 // Bälle
 Ball ballLevel0 = new Ball(20);
@@ -82,12 +97,13 @@ void setup() {
   ballLevel0.setStartY(250);
 
   // Setzte die Bälle - Level 1
-  ballLevel1.setStartX(250);
-  ballLevel1.setStartY(250);
+  ballLevel1.setStartX(20);
+  ballLevel1.setStartY(450);
+  ballLevel2.setSpeed(2);
 
   // Setze die Bälle - Level 2
   ballLevel2.setStartY(250);
-  ballLevel2.setStartX(250);
+  ballLevel2.setStartX(230);
   ballLevel2.setSpeed(2);
 
   // Setze die Bälle - Level 3
@@ -95,19 +111,19 @@ void setup() {
   ballLevel3.setStartY(470);
   ballLevel3.setSpeed(3);
 
-  // Setze die Ziele - Level 1
+  // Setze die Ziele - Level 0
   finishLevel0.setX(350);
   finishLevel0.setY(40);
 
+  // Setze die Ziele - Level 1
+  finishLevel1.setX(110);
+  finishLevel1.setY(450);
+
   // Setze die Ziele - Level 2
-  finishLevel1.setX(480);
-  finishLevel1.setY(40);
+  finishLevel2.setX(230);
+  finishLevel2.setY(467);
 
   // Setze die Ziele - Level 3
-  finishLevel2.setX(480);
-  finishLevel2.setY(40);
-
-  // Setze die Ziele - Level 4
   finishLevel3.setX(65);
   finishLevel3.setY(470);
 
@@ -124,6 +140,10 @@ void setup() {
   level1Walls.add(wall7Level1);
   level1Walls.add(wall8Level1);
   level1Walls.add(wall9Level1);
+  
+  // Setze die Levelanzeige in die Liste der Wände
+  level1Walls.add(showLevel1Object1);
+  level1Walls.add(showLevel1Object2);
 
   // Setze alle Wände in ArrayList - Level 2
   level2Walls.add(wall1Level2);
@@ -174,6 +194,12 @@ void setup() {
   wall8Level1.setY(396);
   wall9Level1.setX(66);
   wall9Level1.setY(396);
+  
+  // Setze die Levelanzeigen - Level 1
+  showLevel1Object1.setX(220);
+  showLevel1Object1.setY(176);
+  showLevel1Object2.setX(267);
+  showLevel1Object2.setY(176);
 
   // Setze die Wände - Level 2
   wall1Level2.setX(33);
@@ -344,6 +370,7 @@ void keyPressed() {
   // Setze das Spiel fort
   if (!isStarted || key == 'g') {
     continueGame();
+    deleteLevelNumber();
   }
 
   // Pausiere das Spiel
@@ -367,7 +394,7 @@ void keyPressed() {
 
 
 void mousePressed() {
-  //println("MouseX: " + mouseX + "; MouseY: " + mouseY);
+  println("MouseX: " + mouseX + "; MouseY: " + mouseY);
 
   // Restart the Game; Wenn Game-Over Screen angezeigt wird
   if (isFinished) {
@@ -394,20 +421,20 @@ void nextLevel() {
     // Lade alte Spielstände aus der Datei
     String file = "";
     String[] lines = loadStrings("results.txt");
-    println("there are " + lines.length + " lines");
     for (int i = 0; i < lines.length; i++) {
       file = file + lines[i] + " ";
     }
-    
+
     // Füge die neuen Spielstände zu den alten Spielständen hinzu
     String result = "#user" + lines.length + ";" + triesLevel1 + ";" + triesLevel2 + ";" + triesLevel3 + ";" + totalTries +";";
     file = file + result;
-    
+
     // Schreibe alle Spielstände in die results.txt
     String[] list = split(file, ' ');
     saveStrings("results.txt", list);
   } else {
     level++;
+    
     setupGame();
   }
 }
@@ -448,15 +475,15 @@ void setupGame() {
     getCurrentWalls().get(i).setColor(255, 255, 255);
   }
 
+  // Setze die Blickrichtung des aktuellen Balls nach Oben
+  getCurrentBall().setViewingDirection(0);
+
   // Update Objekte
   getCurrentBall().update();
   getCurrentFinish().update();
   for (int i = 0; i < getCurrentWalls().size(); i++) {
     getCurrentWalls().get(i).update();
   }
-
-  // Setze die Blickrichtung des aktuellen Balls nach Oben
-  getCurrentBall().setViewingDirection(0);
 }
 
 
@@ -472,15 +499,40 @@ void startCountdown() {
       if (!isStarted) {
         continueGame();
         println("Auf gehts!");
+        
+        deleteLevelNumber();
       }
     }
   }
+}
+
+// Löscht die Level Anzeige aus der ArrayList
+void deleteLevelNumber() {
+  
+  for(int i = 0; i < getCurrentLevelNumber(); i++) {
+   getCurrentWalls().remove(getCurrentWalls().size() - 1);
+  }
+  
+
 }
 
 
 void stopGame() {
   isStarted = false;
   isFinished = true;
+}
+
+int getCurrentLevelNumber() {
+  switch(level) {
+  case 1:
+    return showLevelNumber1;
+  case 2:
+    return showLevelNumber2;
+  case 3:
+    return showLevelNumber3;
+  default:
+    return -1;
+  }
 }
 
 // Gibt das Array mit den Wänden des aktuellen Levels zurück

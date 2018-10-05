@@ -5,10 +5,32 @@ class Ball extends Object {
 
   private int speed = 1;
 
-  private int viewingDirection = 3;
+  private int viewingDirection = 0;
 
   Ball(int pSize) {
     super(pSize, pSize);
+  }
+
+  void update() {
+    int a, b, c, d = a = b = c = 0;
+    int shape = 100;
+    switch (viewingDirection){
+     case 0: 
+     a = b = shape;
+     break;
+     case 1: 
+     b = c = shape;
+     break;
+     case 2: 
+     c = d = shape;
+     break;
+     case 3: 
+     a = d = shape;
+     break;
+    }
+    fill(getColorV1(), getColorV2(), getColorV3());
+    rect(getX(), getY(), getWidth(), getLength(), a, b, c, d);
+    
   }
 
   // Setter: startX
