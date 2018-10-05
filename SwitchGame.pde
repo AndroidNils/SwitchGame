@@ -2,7 +2,7 @@
 // Maps created by: Moritz Knaack
 // Version: 1.3
 
-int level = 1;
+int level = 3;
 
 // Versuche für das Level
 int triesLevel1 = 0;
@@ -15,13 +15,22 @@ int showLevelNumber2 = 5;
 int showLevelNumber3 = 4;
 
 // Levelanzeige - Level 1
-Object showLevel1Object1 = new Object(20, 75); 
+Object showLevel1Object1 = new Object(20, 37); 
 Object showLevel1Object2 = new Object(100, 20); 
 
 // Levelanzeige - Level 2
-
+Object showLevel2Object1 = new Object(20, 50); 
+Object showLevel2Object2 = new Object(40, 20); 
+Object showLevel2Object3 = new Object(20, 50); 
+Object showLevel2Object4 = new Object(40, 20); 
+Object showLevel2Object5 = new Object(20, 50); 
 
 // Levelanzeige - Level 3
+Object showLevel3Object1 = new Object(150, 20); 
+Object showLevel3Object2 = new Object(20, 50); 
+Object showLevel3Object3 = new Object(20, 50); 
+Object showLevel3Object4 = new Object(20, 50); 
+
 
 
 // Bälle
@@ -68,12 +77,10 @@ Object wall6Level3 = new Object(20, 400);
 Object wall7Level3 = new Object(20, 145);
 Object wall8Level3 = new Object(185, 20);
 Object wall9Level3 = new Object(132, 20);
-Object wall10Level3 = new Object(220, 20);
 Object wall11Level3 = new Object(20, 231);
 Object wall12Level3 = new Object(90, 20);
 Object wall13Level3 = new Object(90, 20);
 Object wall14Level3 = new Object(20, 70);
-Object wall15Level3 = new Object(20, 103);
 Object wall16Level3 = new Object(80, 20);
 
 // ArrayListen der Wände
@@ -141,9 +148,26 @@ void setup() {
   level1Walls.add(wall8Level1);
   level1Walls.add(wall9Level1);
 
-  // Setze die Levelanzeige in die Liste der Wände
-  level1Walls.add(showLevel1Object1);
+  // Setze die Levelanzeige in die Liste der Wände 1
   level1Walls.add(showLevel1Object2);
+  level1Walls.add(showLevel1Object1);
+ 
+  
+  // Setze die Levelanzeige in die Liste der Wände 2
+  level2Walls.add(showLevel2Object1);
+  level2Walls.add(showLevel2Object2);
+  level2Walls.add(showLevel2Object3);
+  level2Walls.add(showLevel2Object4);
+  level2Walls.add(showLevel2Object5);
+  
+    // Setze die Levelanzeige in die Liste der Wände 3
+  level3Walls.add(showLevel3Object1);
+  level3Walls.add(showLevel3Object2);
+  level3Walls.add(showLevel3Object3);
+  level3Walls.add(showLevel3Object4);
+
+  
+  
   
   // Setzte die Farbe der Wände
 
@@ -198,11 +222,11 @@ void setup() {
   wall9Level1.setY(396);
 
   // Setze die Levelanzeigen - Level 1
-  showLevel1Object1.setX(220);
+  showLevel1Object1.setX(250);
   showLevel1Object1.setY(176);
   showLevel1Object2.setX(267);
   showLevel1Object2.setY(176);
-
+  
   // Setze die Wände - Level 2
   wall1Level2.setX(33);
   wall1Level2.setY(33);
@@ -217,7 +241,19 @@ void setup() {
   wall5Level2.setX(430);
   wall5Level2.setY(33);
   wall6Level2.setX(155);
-  wall6Level2.setY(370);  
+  wall6Level2.setY(370); 
+  
+    // Setze die Levelanzeigen - Level 2
+  showLevel2Object1.setX(220);
+  showLevel2Object1.setY(130);
+  showLevel2Object2.setX(220);
+  showLevel2Object2.setY(150);
+  showLevel2Object3.setX(220);
+  showLevel2Object3.setY(170);
+  showLevel2Object4.setX(250);
+  showLevel2Object4.setY(110);
+  showLevel2Object5.setX(220);
+  showLevel2Object5.setY(90);
 
   // Setze die Wände - Level 3
   wall1Level3.setX(33);
@@ -238,8 +274,6 @@ void setup() {
   wall8Level3.setY(165); 
   wall9Level3.setX(297);
   wall9Level3.setY(99); 
-  wall10Level3.setX(396);
-  wall10Level3.setY(0); 
   wall11Level3.setX(231);
   wall11Level3.setY(264); 
   wall12Level3.setX(297);
@@ -248,10 +282,18 @@ void setup() {
   wall13Level3.setY(330); 
   wall14Level3.setX(429);
   wall14Level3.setY(330); 
-  wall15Level3.setX(396);
-  wall15Level3.setY(200); 
   wall16Level3.setX(363);
   wall16Level3.setY(264);
+  
+   // Setze die Levelanzeige - Level 3
+  showLevel3Object1.setX(370);
+  showLevel3Object1.setY(35);
+  showLevel3Object2.setX(320);
+  showLevel3Object2.setY(35);
+  showLevel3Object3.setX(320);
+  showLevel3Object3.setY(100);
+  showLevel3Object4.setX(320);
+  showLevel3Object4.setY(165);
 
   //output = createWriter("results.txt");
 
