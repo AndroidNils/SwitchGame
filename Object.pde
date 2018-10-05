@@ -3,7 +3,6 @@ class Object {
   private int x = 25;
   private int y = 25;
 
-  protected int windowXY = 500;
   private int colorV1;
   private int colorV2;
   private int colorV3;
@@ -11,9 +10,16 @@ class Object {
   private int objectLength;
   private int objectWidth;
 
-  Object(int pLaenge, int pobjectWidth) {
+  // Konstruktor mit Größe
+  Object(int pLaenge, int pObjectWidth) {
     setLength(pLaenge);
-    setWidth(pobjectWidth);
+    setWidth(pObjectWidth);
+  }
+  
+  // Konstruktor mit Größe & Farben
+  Object(int pLaenge, int pObjectWidth, int colorV2, int colorV3) {
+    this(pLaenge, pObjectWidth);
+    setColor(colorV1, colorV2, colorV3);
   }
 
   void update() {
@@ -57,7 +63,7 @@ class Object {
 
   // Setter: X
   public void setX(int x) {
-    if (x >= -10 && x <= windowXY - getWidth()) {
+    if (x >= -10 && x <= width - getWidth()) {
       this.x = x;
     } else {
       println("Fehler! Der Parameter für setX stimmt nicht!");
@@ -71,7 +77,7 @@ class Object {
 
   // Getter: Y
   public void setY(int y) {
-    if (y >= -10 && y <= windowXY - getLength()) {
+    if (y >= -10 && y <= height - getLength()) {
       this.y = y;
     } else {
       println("Fehler! Der Parameter für setY stimmt nicht!");

@@ -7,6 +7,7 @@ class Ball extends Object {
 
   private int viewingDirection = 0;
 
+  // Konstruktor mit Größe
   Ball(int pSize) {
     super(pSize, pSize);
   }
@@ -107,7 +108,7 @@ class Ball extends Object {
 
   // Prüfen, ob am Rand ist
   public boolean isAtEdge() {
-    if (getX() <= 0 || getX() == windowXY - getLength() || getY() <= 0 || getY() == windowXY - getLength())
+    if (getX() <= 0 || getX() == width - getLength() || getY() <= 0 || getY() == height - getLength())
       return true;
     else
       return false;
